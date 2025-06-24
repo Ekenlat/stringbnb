@@ -10,8 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_24_200053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bookings", force: :cascade do |t|
+    t.date "starting_date"
+    t.date "ending_date"
+    t.bigint "user_id", null: false
+    t.bigint "instrument_id", null: false
+    t.integer "total_price"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instrument_id"], name: "index_bookings_on_instrument_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "instruments", force: :cascade do |t|
+    t.string "instrument_type"
+    t.integer "price_per_day"
+    t.string "size"
+    t.bigint "user_id", null: false
+    t.text "description"
+    t.string "status"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_instruments_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.bigint "user_id", null: false
+    t.bigint "instrument_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instrument_id"], name: "index_reviews_on_instrument_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email_address"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone_number"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "bookings", "instruments"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "instruments", "users"
+  add_foreign_key "reviews", "instruments"
+  add_foreign_key "reviews", "users"
 end
