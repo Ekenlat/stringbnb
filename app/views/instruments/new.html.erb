@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>What instrument will you make available?</h1>
+  <%= simple_form_for @instrument do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+    <%= f.input :instrument_type, collection: Instrument::INSTRUMENT_TYPES, prompt: "Select instrument type" %>
+    <%= f.input :price_per_day, label: "Price/day (€)" %>
+    <%= f.input :size, collection: Instrument::INSTRUMENT_SIZES, prompt: "Select size" %>
+    <%= f.input :status, collection: %w[Available Booked Maintenance], prompt: "Select status" %>
+    <%= f.button :submit, "Make it available", class: "btn btn-primary" %>
+  <% end %>
+</div>

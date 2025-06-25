@@ -1,4 +1,7 @@
 class InstrumentsController < ApplicationController
+  # On ne s'authentifie pas pour voir la liste des instruments
+  # mais on doit être authentifié pour toute autre action concernant les instruments
+  skip_before_action :authenticate_user!, only: :index
 
   def index
     @instruments = Instrument.all
@@ -6,5 +9,27 @@ class InstrumentsController < ApplicationController
 
   def show
     @instrument = Instrument.find(params[:id])
+  end
+
+  def new
+    @instrument = Instrument.new
+  end
+
+  def create
+    @instrument = Instrument.new(instrument_params)
+    @instrument.user = current_user
+
+    if @instrument.save
+      redirect_to @instrument, notice: 'Instrument was successfully created.'
+    else
+      flash.now[:alert] = 'There was an error while creating the instrument.'
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def instrument_params
+    params.require(:instrument).permit(:name, :description, :size, :instrument_type, :status, :price_per_day, photos: [])
   end
 end
