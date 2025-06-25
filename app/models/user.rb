@@ -13,4 +13,11 @@ class User < ApplicationRecord
 
   # A user can write many reviews, which will persist if the user is deleted.
   has_many :reviews
+
+  # Validations
+  # A user must have a first name, last name, address, and phone number (email and password are handled by Devise).
+
+  validates :first_name, :last_name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :address, presence: true, length: { minimum: 10, maximum: 200 }
+  validates :phone_number, presence: true, length: { minimum: 10, maximum: 15 }, format: { with: /\A\+?\d{10,15}\z/, message: "must be a valid phone number" }
 end
