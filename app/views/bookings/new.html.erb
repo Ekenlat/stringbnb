@@ -1,0 +1,32 @@
+<div class="container booking-form-container d-flex justify-content-center align-items-center">
+  <div class="card booking-form-card shadow-lg p-4">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">
+        <i class="fa-solid fa-calendar-check text-primary"></i>
+        Book <%= @instrument.name %>
+      </h2>
+      <% if @booking.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @booking.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= simple_form_for [@instrument, @booking], html: { class: "needs-validation" } do |f| %>
+        <div class="mb-3">
+          <%= f.input :starting_date, as: :date, label: "Start date", input_html: { class: "form-control" }, label_html: { class: "form-label" } %>
+        </div>
+        <div class="mb-3">
+          <%= f.input :ending_date, as: :date, label: "End date", input_html: { class: "form-control" }, label_html: { class: "form-label" } %>
+        </div>
+        <%= f.button :submit, "Book this instrument", class: "btn btn-success btn-lg w-100" %>
+      <% end %>
+      <div class="text-center mt-3">
+        <%= link_to "Back to instrument", instrument_path(@instrument), class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

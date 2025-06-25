@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <%= link_to "Stringbnb", root_path, class: "navbar-brand" %>
+    <!-- TOODO : add links, connexion, signup/in, profils, etc. here -->
+  </div>
+</nav>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
