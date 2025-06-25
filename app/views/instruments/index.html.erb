@@ -4,6 +4,7 @@
   <div class="row">
     <% @instruments.each do |instrument| %>
     <div class="col-4 my-3">
+      <%= link_to instrument_path(instrument), style: "text-decoration: none;" do %>
       <div class="card">
         <div class="card-body">
           <h5 class="card-title"><%= instrument.name %></h5>
@@ -12,6 +13,7 @@
           <p class="card-text"><strong>Price:</strong> $<%= instrument.price_per_day %>€ per day</p>
       </div>
     </div>
+    <% end %>
   </div>
   <% end %>
 </div>

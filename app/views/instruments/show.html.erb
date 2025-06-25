@@ -1,0 +1,12 @@
+<div class="container">
+  <h1><%= @instrument.name %></h1>
+  <h3><%= @instrument.description %></h3>
+  <p><strong>Type:</strong> <%= @instrument.instrument_type %></p>
+  <p><strong>Price:</strong> $<%= @instrument.price_per_day %>€ per day</p>
+  <p><strong>Owner:</strong> <%= @instrument.user.first_name %> <%= @instrument.user.last_name %></p>
+  <p><strong>Location:</strong> <%= @instrument.user.address %></p>
+  <p><strong>Size:</strong> <%= @instrument.size %></p>
+  <p><strong>Status:</strong> <%= @instrument.status %></p>
+</div>
+
+<%= link_to "Back to Instruments", instruments_path %>
