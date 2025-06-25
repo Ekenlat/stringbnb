@@ -1,5 +1,7 @@
 class Instrument < ApplicationRecord
+  # For instrument types and sizes, we use a predefined list to avoid input errors. Add more types to make it exhaustive. This constant is called in create and update actions.
   INSTRUMENT_TYPES = %w[String Woodwind Brass Percussion Electronic].freeze
+  INSTRUMENT_SIZES = %w[Standard Large Compact Mini XL].freeze
 
   belongs_to :user
 
@@ -17,10 +19,10 @@ class Instrument < ApplicationRecord
   # Validations
   # An instrument must have a name, description, size, instrument type, status, and price per day.
 
-  # For instrument types, we use a predefined list to avoid input errors. Add more types to make it exhaustive.
+
   validates :instrument_type, presence: true, inclusion: { in: INSTRUMENT_TYPES }
   validates :price_per_day, presence: true, numericality: { greater_than: 0 }
-  validates :size, presence: true, inclusion: { in: %w[Standard Large Compact Mini XL] }
+  validates :size, presence: true, inclusion: { in: INSTRUMENT_SIZES }
   validates :description, presence: true, length: { minimum: 10, maximum: 400 }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :status, presence: true, inclusion: { in: %w[available booked maintenance] }

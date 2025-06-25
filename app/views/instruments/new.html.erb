@@ -3,10 +3,11 @@
   <%= simple_form_for @instrument do |f| %>
     <%= f.input :name %>
     <%= f.input :description %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true } %>
     <%= f.input :instrument_type, collection: Instrument::INSTRUMENT_TYPES, prompt: "Select instrument type" %>
     <%= f.input :price_per_day, label: "Price/day (€)" %>
-    <%= f.input :size, collection: %w[Standard Large Compact Mini XL], prompt: "Select size" %>
-    <%= f.input :status, collection: %w[available booked maintenance], prompt: "Select status" %>
+    <%= f.input :size, collection: Instrument::INSTRUMENT_SIZES, prompt: "Select size" %>
+    <%= f.input :status, collection: %w[Available Booked Maintenance], prompt: "Select status" %>
     <%= f.button :submit, "Make it available", class: "btn btn-primary" %>
   <% end %>
 </div>
