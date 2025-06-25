@@ -22,7 +22,7 @@ users = []
 # crée les users ( j'ai  enlevé le role sur conseil du prof dans les migrations )
 prenoms.each do |prenom|
   users << User.create!(
-    email_address: "#{prenom.downcase}@test.com",
+    email: "#{prenom.downcase}@test.com",
     first_name: prenom,
     last_name: prenom,
     address: Faker::Address.city,
