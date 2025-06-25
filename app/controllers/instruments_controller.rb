@@ -22,6 +22,7 @@ class InstrumentsController < ApplicationController
     if @instrument.save
       redirect_to @instrument, notice: 'Instrument was successfully created.'
     else
+      flash.now[:alert] = 'There was an error while creating the instrument.'
       render :new, status: :unprocessable_entity
     end
   end
