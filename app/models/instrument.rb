@@ -1,4 +1,6 @@
 class Instrument < ApplicationRecord
+  INSTRUMENT_TYPES = %w[String Woodwind Brass Percussion Electronic].freeze
+
   belongs_to :user
 
   # An instrument can be booked many times and the bookings will persist if the instrument is deleted for historical records.
@@ -16,7 +18,7 @@ class Instrument < ApplicationRecord
   # An instrument must have a name, description, size, instrument type, status, and price per day.
 
   # For instrument types, we use a predefined list to avoid input errors. Add more types to make it exhaustive.
-  validates :instrument_type, presence: true, inclusion: { in: %w[String Woodwind Brass Percussion Electronic] }
+  validates :instrument_type, presence: true, inclusion: { in: INSTRUMENT_TYPES }
   validates :price_per_day, presence: true, numericality: { greater_than: 0 }
   validates :size, presence: true, inclusion: { in: %w[Standard Large Compact Mini XL] }
   validates :description, presence: true, length: { minimum: 10, maximum: 400 }
