@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Instruments to Rent</h1>
+  <%= link_to "Home", root_path %>
+  <div class="row">
+    <% @instruments.each do |instrument| %>
+    <div class="col-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= instrument.name %></h5>
+          <p class="card-text"><%= instrument.description %></p>
+          <p class="card-text"><strong>Type:</strong> <%= instrument.instrument_type %></p>
+          <p class="card-text"><strong>Price:</strong> $<%= instrument.price_per_day %>€ per day</p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
