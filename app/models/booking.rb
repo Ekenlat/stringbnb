@@ -9,5 +9,4 @@ class Booking < ApplicationRecord
   validates :ending_date, presence: true, comparison: { greater_than_or_equal_to: :starting_date }
   validates :total_price, presence: true, numericality: { greater_than: 0 }
   validates :status, presence: true, inclusion: { in: %w[pending confirmed cancelled] }
-
 end

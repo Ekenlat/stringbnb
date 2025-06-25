@@ -5,6 +5,10 @@ class Instrument < ApplicationRecord
   # This is useful for keeping track of past bookings even if the instrument is deleted.
   has_many :bookings
 
+  # Each instrument can have multiple photos attached via Active Storage
+  # Used for instrument listings so owners can upload several images per instrument
+  has_many_attached :photos
+
   # An instrument can receive many reviews, all will be destroyed if the instrument is deleted.
   has_many :reviews, dependent: :destroy
 
@@ -18,6 +22,4 @@ class Instrument < ApplicationRecord
   validates :description, presence: true, length: { minimum: 10, maximum: 400 }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :status, presence: true, inclusion: { in: %w[available booked maintenance] }
-
-
 end
