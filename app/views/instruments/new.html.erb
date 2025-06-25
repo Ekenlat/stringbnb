@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>What instrument will you make available?</h1>
+  <%= simple_form_for @instrument do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :instrument_type, collection: Instrument::INSTRUMENT_TYPES, prompt: "Select instrument type" %>
+    <%= f.input :price_per_day %>
+    <%= f.input :size %>
+    <%= f.input :status %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
