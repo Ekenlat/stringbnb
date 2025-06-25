@@ -38,8 +38,10 @@ instrument_names = [
   "Roland FP-30",
   "Ibanez RG"
 ]
-instrument_types = ["Guitare électrique", "Piano numérique", "Basse", "Synthé", "Batterie"]
-sizes = ["Standard", "Large", "Compact", "Mini", "XL"]
+
+# Petit changement sur les types d'instruments pour coller avec les validations du modèle
+instrument_types = %w[String Woodwind Brass Percussion Electronic]
+sizes = %w[Standard Large Compact Mini XL]
 
 instruments = []
 
