@@ -5,15 +5,24 @@
     <% @instruments.each do |instrument| %>
     <div class="col-4 my-3">
       <%= link_to instrument_path(instrument), style: "text-decoration: none;" do %>
-      <div class="card">
+      <div class="card shadow-sm">
         <div class="card-body">
-          <h5 class="card-title"><%= instrument.name %></h5>
+          <h5 class="card-title d-flex justify-content-between align-items-center"><%= instrument.name %>
+            <% if user_signed_in? && current_user == instrument.user %>
+              <span class="badge bg-primary">My Instrument</span>
+            <% end %>
+          </h5>
           <p class="card-text"><%= instrument.description %></p>
           <p class="card-text"><strong>Type:</strong> <%= instrument.instrument_type %></p>
           <p class="card-text"><strong>Price:</strong> $<%= instrument.price_per_day %>€ per day</p>
+          <p class="card-text text-muted mb-0">
+          <i class="fa fa-user"></i>
+          Owned by: <%= instrument.user.first_name %> <%= instrument.user.last_name %>
+          </p>
+        </div>
       </div>
+      <% end %>
     </div>
     <% end %>
   </div>
-  <% end %>
 </div>

@@ -1,12 +1,24 @@
-<div class="container">
-  <h1><%= @instrument.name %></h1>
-  <h3><%= @instrument.description %></h3>
-  <p><strong>Type:</strong> <%= @instrument.instrument_type %></p>
-  <p><strong>Price:</strong> $<%= @instrument.price_per_day %>€ per day</p>
-  <p><strong>Owner:</strong> <%= @instrument.user.first_name %> <%= @instrument.user.last_name %></p>
-  <p><strong>Location:</strong> <%= @instrument.user.address %></p>
-  <p><strong>Size:</strong> <%= @instrument.size %></p>
-  <p><strong>Status:</strong> <%= @instrument.status %></p>
+<div class="container d-flex justify-content-center my-5">
+  <div class="card shadow p-4">
+   <div class="card-body">
+    <h2 class="card-title"><%= @instrument.name %></h2>
+    <h5 class="card-subtitle mb-2 text-muted"><%= @instrument.description %></h5>
+    <ul class="list-group list-group-flush my-3">
+    <li class="list-group-item"><strong>Type:</strong> <%= @instrument.instrument_type %></li>
+    <li class="list-group-item"><strong>Price:</strong> $<%= @instrument.price_per_day %>€ per day</li>
+    <li class="list-group-item"><strong>Owner:</strong> <%= @instrument.user.first_name %> <%= @instrument.user.last_name %></li>
+    <li class="list-group-item"><strong>Location:</strong> <%= @instrument.user.address %></li>
+    <li class="list-group-item"><strong>Size:</strong> <%= @instrument.size %></li>
+    <li class="list-group-item"><strong>Status:</strong> <%= @instrument.status %></li>
+    </ul>
+    <% if user_signed_in? && current_user == @instrument.user %>
+        <div class="alert alert-info text-center my-3">This is your instrument.</div>
+      <% elsif user_signed_in? %>
+        <%= link_to "Book this instrument", new_instrument_booking_path(@instrument), class: "btn btn-success btn-lg w-100" %>
+      <% end %>
+      <div class="text-center mt-3">
+        <%= link_to "Back to Instruments", instruments_path %>
+    </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "Back to Instruments", instruments_path %>
