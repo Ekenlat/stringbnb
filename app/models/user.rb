@@ -14,6 +14,9 @@ class User < ApplicationRecord
   # A user can write many reviews, which will persist if the user is deleted.
   has_many :reviews
 
+  # un owner peut voir ses listings d'instruments
+  has_many :listings, class_name: 'Instrument', foreign_key: 'user_id'
+
   # Validations
   # A user must have a first name, last name, address, and phone number (email and password are handled by Devise).
 

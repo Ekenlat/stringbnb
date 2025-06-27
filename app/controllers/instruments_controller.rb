@@ -15,6 +15,10 @@ class InstrumentsController < ApplicationController
     @instrument = Instrument.new
   end
 
+  def dashboard
+    @instruments = current_user.instruments
+  end
+
   def create
     @instrument = Instrument.new(instrument_params)
     @instrument.user = current_user
