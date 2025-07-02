@@ -48,9 +48,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_02_180529) do
     t.bigint "user_id", null: false
     t.bigint "instrument_id", null: false
     t.integer "total_price"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
     t.index ["instrument_id"], name: "index_bookings_on_instrument_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_02_180529) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
-    t.text "content"
+    t.text "comment"
     t.bigint "user_id", null: false
     t.bigint "instrument_id", null: false
     t.datetime "created_at", null: false
