@@ -16,7 +16,8 @@ Review.destroy_all
 Instrument.destroy_all
 User.destroy_all
 
-prenoms = %w[Audric Barthelemy Jonathan Nour Baptiste]
+
+prenoms = %w[Audric Barthelemy Nour Baptiste Jonathan]
 noms = %w[Nomentsoa Terrier Cucculelli Harrag Masson]
 users = []
 

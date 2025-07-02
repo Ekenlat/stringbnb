@@ -1,0 +1,49 @@
+<%= form_with(model: instrument, local: true) do |f| %>
+  <% if instrument.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(instrument.errors.count, "error") %> prohibited this instrument from being saved:</h4>
+      <ul>
+        <% instrument.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :instrument_type %>
+    <%= f.select :instrument_type, Instrument::INSTRUMENT_TYPES, {}, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :size %>
+    <%= f.select :size, Instrument::INSTRUMENT_SIZES, {}, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :price_per_day %>
+    <%= f.number_field :price_per_day, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :status %>
+    <%= f.select :status, %w[Available Booked Maintenance], {}, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :photos %>
+    <%= f.file_field :photos, multiple: true, class: "form-control" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

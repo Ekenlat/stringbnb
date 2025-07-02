@@ -21,6 +21,12 @@
       <div class="text-center mt-3">
         <%= link_to "Back to Instruments", instruments_path %>
     </div>
+    <% if user_signed_in? && current_user == booking.instrument.user %>
+      <%= link_to "Cancel booking", booking_path(booking), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+    <% end %>
+    <% if user_signed_in? && current_user == @instrument.user %>
+      <%= link_to "Edit this instrument", edit_instrument_path(@instrument), class: "btn btn-warning" %>
+    <% end %>
     </div>
   </div>
 </div>
