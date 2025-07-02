@@ -20,6 +20,10 @@ class BookingsController < ApplicationController
     end
   end
 
+  def my_bookings
+    @bookings = current_user.bookings
+  end
+
   def destroy
     @booking = Booking.find(params[:id])
     if @booking.instrument.user == current_user
