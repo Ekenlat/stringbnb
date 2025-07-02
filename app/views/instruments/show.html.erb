@@ -13,8 +13,25 @@
     </ul>
     <% if user_signed_in? && current_user == @instrument.user %>
         <div class="alert alert-info text-center my-3">This is your instrument.</div>
+        <h3>Reviews for this instrument :</h3>
+        <% if @instrument.reviews.any? %>
+          <ul>
+            <% @instrument.reviews.each do |review| %>
+              <li>
+                <strong>Note :</strong> <%= review.rating %>/5<br>
+                <strong>Commentaire :</strong> <%= review.comment || review.content %><br>
+                <strong>Par :</strong> <%= review.user.first_name %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>No reviews yet for this instrument.</p>
+        <% end %>
       <% elsif user_signed_in? %>
         <%= link_to "Book this instrument", new_instrument_booking_path(@instrument), class: "btn btn-success btn-lg w-100" %>
+      <% end %>
+      <% if user_signed_in? && current_user != @instrument.user %>
+        <%= link_to "Leave a review", new_instrument_review_path(@instrument), class: "btn btn-secondary" %>
       <% end %>
       <div class="text-center mt-3">
         <%= link_to "Back to Instruments", instruments_path %>

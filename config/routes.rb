@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # et permet de nester bookings proprement
 
   resources :instruments do
+    resources :reviews, only: [:new, :create]
     resources :bookings, only: %i[new create]
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
