@@ -1,6 +1,6 @@
 class Instrument < ApplicationRecord
   # For instrument types and sizes, we use a predefined list to avoid input errors. Add more types to make it exhaustive. This constant is called in create and update actions.
-  INSTRUMENT_TYPES = %w[String Woodwind Brass Percussion Electronic].freeze
+  INSTRUMENT_TYPES = instrument_types = %w[ Guitare Violon Piano Clarinette Batterie Flûte\ traversière Saxophone Contrebasse Trompette Harp Guitare\ électrique Accordéon Ukulélé Xylophone Harmonica].freeze
   INSTRUMENT_SIZES = %w[Standard Large Compact Mini XL].freeze
 
   belongs_to :user
@@ -25,5 +25,4 @@ class Instrument < ApplicationRecord
   validates :size, presence: true, inclusion: { in: INSTRUMENT_SIZES }
   validates :description, presence: true, length: { minimum: 10, maximum: 400 }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :status, presence: true, inclusion: { in: %w[Available Booked Maintenance] }
 end
