@@ -16,7 +16,7 @@ Review.destroy_all
 Instrument.destroy_all
 User.destroy_all
 
-prenoms = %w[Audric Barthelemy Jonathan Nour Baptiste]
+prenoms = %w[Audric Barthelemy Nour Baptiste Jonathan]
 users = []
 
 # crée les users ( j'ai  enlevé le role sur conseil du prof dans les migrations )
