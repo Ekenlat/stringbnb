@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: stringbnb_production
-  username: stringbnb
-  password: <%= ENV["STRINGBNB_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
