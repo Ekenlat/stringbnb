@@ -1,0 +1,7 @@
+<%= form_with(model: instrument, local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :photos, "Photos" %>
+    <%= f.file_field :photos, multiple: true, direct_upload: true, class: "form-control" %>
+  </div>
+  <%= f.submit %>
+<% end %>
