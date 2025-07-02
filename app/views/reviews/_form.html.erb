@@ -1,0 +1,17 @@
+<!-- filepath: app/views/reviews/_form.html.erb -->
+<% if user_signed_in? %>
+  <h4>Laisser un avis</h4>
+  <%= form_with model: [instrument, Review.new], local: true do |f| %>
+    <div class="mb-2">
+      <%= f.label :content, "Votre avis" %><br>
+      <%= f.text_area :content, required: true, class: "form-control" %>
+    </div>
+    <div class="mb-2">
+      <%= f.label :rating, "Note" %><br>
+      <%= f.number_field :rating, in: 1..5, required: true, class: "form-control", step: 1 %>
+    </div>
+    <%= f.submit "Laisser un avis", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <div class="alert alert-warning">Connectez-vous pour laisser un avis.</div>
+<% end %>

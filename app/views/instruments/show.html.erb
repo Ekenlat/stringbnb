@@ -19,6 +19,8 @@
       <div class="text-center mt-3">
         <%= link_to "Back to Instruments", instruments_path %>
     </div>
+    <%= render 'reviews/form', instrument: @instrument %>
+    <%= render 'reviews/list' %>
     </div>
   </div>
 </div>

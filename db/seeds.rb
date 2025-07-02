@@ -25,7 +25,7 @@ prenoms.each do |prenom|
     email: "#{prenom.downcase}@test.com",
     first_name: prenom,
     last_name: prenom,
-    address: Faker::Address.city,
+    address: Faker::Address.full_address,
     phone_number: Faker::PhoneNumber.cell_phone_in_e164,
     password: "azerty"
   )
@@ -75,7 +75,7 @@ end
 Booking.all.each do |booking|
   Review.create!(
     rating: rand(3..5),
-    comment: Faker::Hipster.sentence,
+    content: Faker::Hipster.sentence,
     user: booking.user,
     instrument: booking.instrument
   )

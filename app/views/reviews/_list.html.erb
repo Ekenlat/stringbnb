@@ -1,0 +1,9 @@
+<!-- filepath: app/views/reviews/_list.html.erb -->
+<ul>
+  <% @instrument.reviews.each do |review| %>
+    <li>
+      <strong><%= review.user.email %></strong> :
+      <%= review.content %> (Note : <%= review.rating %>/5)
+    </li>
+  <% end %>
+</ul>
