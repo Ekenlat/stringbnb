@@ -12,6 +12,7 @@
               <span class="badge bg-primary">My Instrument</span>
             <% end %>
           </h5>
+          <%= cl_image_tag instrument.photos.first.key, class: "card-img-top", alt: instrument.name, crop: :fill %>
           <p class="card-text"><%= instrument.description %></p>
           <p class="card-text"><strong>Type:</strong> <%= instrument.instrument_type %></p>
           <p class="card-text"><strong>Price:</strong> $<%= instrument.price_per_day %>€ per day</p>

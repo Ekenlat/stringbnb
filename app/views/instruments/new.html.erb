@@ -7,7 +7,6 @@
     <%= f.input :instrument_type, collection: Instrument::INSTRUMENT_TYPES, prompt: "Select instrument type" %>
     <%= f.input :price_per_day, label: "Price/day (€)" %>
     <%= f.input :size, collection: Instrument::INSTRUMENT_SIZES, prompt: "Select size" %>
-    <%#f.input :status, collection: %w[Available Booked Maintenance], prompt: "Select status" %>
     <%= f.button :submit, "Make it available", class: "btn btn-primary" %>
   <% end %>
 </div>
