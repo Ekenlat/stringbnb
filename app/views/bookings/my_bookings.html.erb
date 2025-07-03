@@ -2,7 +2,7 @@
 <ul>
   <% @bookings.each do |booking| %>
     <li>
-      <strong>Instrument :</strong> <%= booking.instrument.name %> <br>
+      <strong>Instrument :</strong> <%= booking.instrument.instrument %> <br>
       <strong>Du :</strong> <%= booking.starting_date %> au <%= booking.ending_date %>
     </li>
   <% end %>
