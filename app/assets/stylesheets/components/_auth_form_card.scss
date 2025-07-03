@@ -1,0 +1,23 @@
+.home-card,
+.auth-form-card {
+  border-radius: 1.5rem;
+  background: #fff;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 32px 0 rgba(50,80,180,0.08);
+}
+
+.home-card .fa-user-circle,
+.home-card .fa-lock,
+.home-card .fa-guitar,
+.auth-form-card .fa-user-circle,
+.auth-form-card .fa-lock,
+.auth-form-card .fa-guitar {
+  filter: drop-shadow(0 1px 2px #0d6efd30);
+}
+
+.home-card .btn-outline-primary,
+.auth-form-card .btn-outline-primary {
+  border-radius: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}

@@ -20,6 +20,19 @@ class BookingsController < ApplicationController
     end
   end
 
+  def my_bookings
+    @bookings = current_user.bookings
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id])
+    if @booking.instrument.user == current_user
+      @booking.destroy
+      redirect_to dashboard_path, notice: "Booking deleted successfully."
+    else
+      redirect_to dashboard_path, alert: "Vous ne pouvez que supprimez les reservations qui vous appartienne."
+    end
+  end
   private
 
   def set_instrument
