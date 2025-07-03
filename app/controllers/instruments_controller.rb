@@ -9,6 +9,9 @@ class InstrumentsController < ApplicationController
 
   def show
     @instrument = Instrument.find(params[:id])
+    if user_signed_in?
+    @booking = Booking.find_by(user: current_user, instrument: @instrument)
+    end
   end
 
   def new

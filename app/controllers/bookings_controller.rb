@@ -33,6 +33,7 @@ class BookingsController < ApplicationController
       redirect_to dashboard_path, alert: "Vous ne pouvez que supprimez les reservations qui vous appartienne."
     end
   end
+
   private
 
   def set_instrument
