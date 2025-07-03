@@ -27,9 +27,9 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><%= link_to "Dashboard", dashboard_path, class: "dropdown-item" %></li>
-              <li><%= link_to "Profile", user_path(current_user), class: "dropdown-item" %></li>
+              <li><%= link_to "Profile", new_user_session_path, class: "dropdown-item" %></li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %></li>
+              <li><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item text-danger" %></li>
             </ul>
           </li>
         <% else %>
