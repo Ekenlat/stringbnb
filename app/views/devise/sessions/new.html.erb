@@ -1,20 +1,48 @@
-<h2>Log in</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="home-card card shadow-lg p-5 text-center auth-form-card">
+          <% if user_signed_in? %>
+            <div class="mb-4">
+              <i class="fa-solid fa-guitar fa-3x text-primary mb-2"></i>
+              <h2 class="mb-1">Welcome back, music lover!</h2>
+              <p class="lead mb-3">
+                <span class="fw-bold text-primary"><%= current_user.email %></span>
+              </p>
+              <div class="alert alert-success mb-4">
+                You’re already logged in!<br>
+                Go manage your instruments or <%= link_to "log out", destroy_user_session_path, method: :delete, class: "alert-link" %>.
+              </div>
+              <%= link_to "Go to my dashboard", dashboard_path, class: "btn btn-outline-primary shadow-sm" %>
+            </div>
+          <% else %>
+            <div class="mb-4">
+              <i class="fa-solid fa-guitar fa-3x text-secondary mb-2"></i>
+              <h2 class="mb-2">Welcome to Stringbnb!</h2>
+              <p class="mb-3 lead">
+                Log in below to book your next instrument,<br>
+                or <%= link_to "sign up", new_user_registration_path, class: "fw-bold" %> and join the band.
+              </p>
+              <div class="alert alert-info">
+                You need an account to rent or list an instrument.<br>
+                🎸 Let’s make some noise!
+              </div>
+            </div>
+            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-inputs">
+                <%= f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" } %>
+                <%= f.input :password, required: false, input_html: { autocomplete: "current-password" } %>
+                <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+              </div>
+              <div class="form-actions">
+                <%= f.button :submit, "Log in", class: "btn btn-primary w-100" %>
+              </div>
+            <% end %>
+            <%= render "devise/shared/links" %>
+            <% end %>
+            <div class="small text-muted mt-3">
+          <i class="fa fa-info-circle"></i> Need help? Contact the Stringbnb crew!
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
