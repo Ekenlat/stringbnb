@@ -1,29 +1,30 @@
-<div class="container">
-  <h1>Instruments to Rent</h1>
-  <%= link_to "Home", root_path %>
-  <div class="row">
+<div class="container py-5">
+  <h1 class="mb-5 text-center text-primary fw-bold">Instruments disponibles à la location</h1>
+  <div class="row g-4">
     <% @instruments.each do |instrument| %>
-    <div class="col-4 my-3">
-      <%= link_to instrument_path(instrument), style: "text-decoration: none;" do %>
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center"><%= instrument.name %>
-            <% if user_signed_in? && current_user == instrument.user %>
-              <span class="badge bg-primary">My Instrument</span>
-            <% end %>
-          </h5>
-          <%= cl_image_tag instrument.photos.first.key, class: "card-img-top", alt: instrument.name, crop: :fill %>
-          <p class="card-text"><%= instrument.description %></p>
-          <p class="card-text"><strong>Type:</strong> <%= instrument.instrument_type %></p>
-          <p class="card-text"><strong>Price:</strong> $<%= instrument.price_per_day %>€ per day</p>
-          <p class="card-text text-muted mb-0">
-          <i class="fa fa-user"></i>
-          Owned by: <%= instrument.user.first_name %> <%= instrument.user.last_name %>
-          </p>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 instrument-card">
+
+          <% if instrument.photos.attached? %>
+            <%= cl_image_tag instrument.photos.first.key, class: "card-img-top", alt: instrument.name, crop: :fill %>
+          <% else %>
+            <%= image_tag "placeholder.jpeg", class: "card-img-top", alt: "No image available" %>
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title text-primary fw-semibold mb-0"><%= instrument.name %></h5>
+              <span class="badge bg-warning text-dark"><%= instrument.instrument_type %></span>
+            </div>
+
+            <p class="card-text text-muted"><%= truncate(instrument.description, length: 90) %></p>
+            <p class="text-dark fw-bold mb-1"><%= number_to_currency(instrument.price_per_day, unit: "€") %> / jour</p>
+            <p class="text-muted small mt-auto mb-2">Propriétaire : <%= instrument.user.first_name %></p>
+
+            <%= link_to "Voir l'instrument", instrument_path(instrument), class: "btn btn-primary w-100" %>
+          </div>
         </div>
       </div>
-      <% end %>
-    </div>
     <% end %>
   </div>
 </div>

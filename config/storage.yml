@@ -35,3 +35,4 @@ local:
 
 cloudinary:
   service: Cloudinary
+  url: <%= ENV['CLOUDINARY_URL'] %>
