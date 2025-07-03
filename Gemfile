@@ -3,6 +3,9 @@ source "https://rubygems.org"
 ruby "3.3.5"
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
 
 # better errors for development
 gem 'better_errors', '~> 2.9', '>= 2.9.1'
