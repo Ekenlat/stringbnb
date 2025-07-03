@@ -31,9 +31,23 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  def edit
+    @instrument = current_user.instruments.find(params[:id])
+  end
+
+  def update
+    @instrument = current_user.instruments.find(params[:id])
+    if @instrument.update(instrument_params)
+      redirect_to @instrument, notice: "Instrument updated successfully."
+    else
+      flash.now[:alert] = "There was an error while updating the instrument."
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def instrument_params
-    params.require(:instrument).permit(:name, :description, :size, :instrument_type, :status, :price_per_day, photos: [])
+    params.require(:instrument).permit(:name, :description, :size, :instrument_type, :price_per_day, photos: [])
   end
 end
