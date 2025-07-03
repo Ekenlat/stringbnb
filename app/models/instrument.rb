@@ -7,7 +7,7 @@ class Instrument < ApplicationRecord
 
   # An instrument can be booked many times and the bookings will persist if the instrument is deleted for historical records.
   # This is useful for keeping track of past bookings even if the instrument is deleted.
-  has_many :bookings, dependent: destroy
+  has_many :bookings, dependent: :destroy
 
   # Each instrument can have multiple photos attached via Active Storage
   # Used for instrument listings so owners can upload several images per instrument
