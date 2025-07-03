@@ -5,24 +5,26 @@
 // 3. You can override them below!
 
 // General style
-$font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$font-family-sans-serif: 'Poppins', sans-serif;
+$headings-font-family: 'Poppins', sans-serif;
+$font-size-base: 1rem;
 
-// Colors
-$body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// == Layout
+$body-bg: #F8F9FA;     // couleur de fond très claire
+$body-color: #2C2C2C;  // texte principal
 
-// Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+// == Bootstrap color overrides (palette Stringbnb)
+$primary:    #5A4E7C;
+$warning:    #F3B664;
+$success:    #2ECC71;
+$info:       #6C757D;
+$danger:     #E74C3C;
 
-// Override other variables below!
+// == Utilities
+$light:      #ffffff;
+$dark:       #2C2C2C;
+
+// == Border radius
+$border-radius-sm: 0.25rem;
+$border-radius:    0.5rem;
+$border-radius-lg: 1rem;
