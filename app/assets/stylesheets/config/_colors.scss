@@ -1,10 +1,20 @@
-// Define variables for your color scheme
+// === Palette principale ===
+$primary-color: #5A4E7C;
+$accent-color: #F3B664;
+$background-color: #F8F9FA;
+$text-color: #2C2C2C;
+$muted-gray: #6C757D;
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// === Couleurs complémentaires ===
+$light-gray: #F1F1F1;
+$dark-gray: #343A40;
+$success-color: #2ECC71;
+$error-color: #E74C3C;
+
+// === Couleurs Bootstrap  ===
+$gray: #6C757D;
+$blue: #0d6efd;
+$green: #198754;
+$yellow: #ffc107;
+$red: #dc3545;
+$orange: #fd7e14;

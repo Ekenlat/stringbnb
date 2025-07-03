@@ -1,4 +1,12 @@
-<h1>Stringbnb</h1>
-<p>Rent instruments nearby!</p>
-<%= link_to "See all instruments", instruments_path %>
-<%= link_to "Rent your instrument!", new_instrument_path %>
+<div class="container py-5">
+  <div class="row align-items-center min-vh-100">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-3 fw-bold text-primary mb-3">Stringbnb</h1>
+      <p class="lead text-muted mb-4">Rent instruments nearby!</p>
+      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-lg-start">
+        <%= link_to "See all instruments", instruments_path, class: "btn btn-primary btn-lg px-4 me-sm-3" %>
+        <%= link_to "Rent your instrument", new_instrument_path, class: "btn btn-warning btn-lg px-4 text-dark" %>
+      </div>
+    </div>
+  </div>
+</div>
