@@ -3,7 +3,7 @@
     <% if instrument.photos.attached? %>
       <%= image_tag instrument.photos.first.variant(resize_to_fill: [60, 60]), class: "rounded-circle shadow-sm border instrument-info-photo" %>
     <% else %>
-      <i class="fa-solid fa-guitar fa-2x text-secondary"></i>
+      <%= image_tag "logo.png", width: 60, height: 60, class: "rounded-circle shadow-sm border instrument-info-photo" %>
     <% end %>
     <div>
       <h5 class="mb-1 fw-bold text-primary"><%= instrument.name %></h5>

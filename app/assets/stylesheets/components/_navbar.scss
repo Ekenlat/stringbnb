@@ -1,3 +1,32 @@
 .navbar {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
+.navbar-logo {
+  height: 100px !important;
+  width: auto !important;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+
+  // responsive
+
+  @media (max-width: 768px) {
+    height: 60px !important;
+  }
+
+  &:hover {
+    transform: rotate(-2deg) scale(1.05);
+  }
+}
+
+.navbar-brand-text {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #5c4084;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+
+  &:hover {
+    color: #ff914d; // orange léger (harmonieux avec bouton)
+    letter-spacing: 0.5px;
+  }
+}

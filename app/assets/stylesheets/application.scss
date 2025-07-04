@@ -13,9 +13,12 @@
 @import "components/booking_form";
 @import "components/instrument_card";
 @import "components/auth_form_card";
+@import "components/homepage";
+@import "components/address_autocomplete";
 
 
 // Mapbox CSS
 
 @import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
+@import url("https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css");
 @import "components/map"

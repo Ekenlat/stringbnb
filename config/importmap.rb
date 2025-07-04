@@ -9,11 +9,11 @@ pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 pin "mapbox-gl" # @3.1.2
 pin "process" # @2.1.0
-pin "@mapbox/mapbox-gl-geocoder", to: "@mapbox--mapbox-gl-geocoder.js" # @5.0.3
-pin "#lib/client.js", to: "#lib--client.js.js" # @0.16.1
+pin "@mapbox/mapbox-gl-geocoder", to: "@mapbox--mapbox-gl-geocoder.js" # @5.0.0
+pin "#lib/client.js", to: "#lib--client.js.js" # @0.13.7
 pin "@mapbox/fusspot", to: "@mapbox--fusspot.js" # @0.4.0
-pin "@mapbox/mapbox-sdk", to: "@mapbox--mapbox-sdk.js" # @0.16.1
-pin "@mapbox/mapbox-sdk/services/geocoding", to: "@mapbox--mapbox-sdk--services--geocoding.js" # @0.16.1
+pin "@mapbox/mapbox-sdk", to: "@mapbox--mapbox-sdk.js" # @0.13.7
+pin "@mapbox/mapbox-sdk/services/geocoding", to: "@mapbox--mapbox-sdk--services--geocoding.js" # @0.13.7
 pin "@mapbox/parse-mapbox-token", to: "@mapbox--parse-mapbox-token.js" # @0.2.0
 pin "base-64" # @0.1.0
 pin "eventemitter3" # @3.1.2

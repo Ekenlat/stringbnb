@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
   <div class="container">
-    <%= link_to "Stringbnb", root_path, class: "navbar-brand fw-bold text-primary" %>
+    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+      <%= image_tag("logo.png", alt: "Stringbnb Logo", class: "navbar-logo me-2") %>
+      <span class="navbar-brand-text">Stringbnb</span>
+      <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

@@ -19,7 +19,7 @@ class InstrumentsController < ApplicationController
       @instruments = @instruments.where("address ILIKE ?", "%#{params[:city]}%")
     end
 
-    #filtre prix min
+    # filtre prix min
     if params[:price_min].present?
       @instruments = @instruments.where("price_per_day >= ?", params[:price_min])
     end
@@ -34,7 +34,7 @@ class InstrumentsController < ApplicationController
       @instruments = @instruments.where(instrument_type: params[:category])
     end
 
-    #on prépare un tableau des marqueurs avec latitude/longitude pour mapbox
+    # on prépare un tableau des marqueurs avec latitude/longitude pour mapbox
     @markers = @instruments.select { |i| i.latitude.present? && i.longitude.present? }.map do |instrument|
       {
         lat: instrument.latitude,
