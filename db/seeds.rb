@@ -81,7 +81,7 @@ INSTRUMENTS.each do |type, description|
   )
   instrument.geocode
   instrument.save!
-  
+
   puts "Instrument #{instrument.name}: #{instrument.latitude}, #{instrument.longitude}"
 
   # ajoute la photo principale via open-uri
@@ -124,7 +124,7 @@ users.each_with_index do |user, i|
     user: user,
     instrument: instrument,
     total_price: instrument.price_per_day * rand(1..5),
-    status: %w[pending confirmed cancelled].sample
+    status: %w[pending accepted cancelled].sample
   )
   puts "#{user.first_name} booked #{instrument.name}"
 end
