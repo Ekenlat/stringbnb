@@ -86,6 +86,17 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  def update_status
+    @instrument = current_user.instruments.find(params[:id])
+    # on vérifie que le statut envoyé est bien un statut valide
+    if Instrument.statuses.keys.include?(params[:status])
+      @instrument.update(status: params[:status])
+      redirect_to dashboard_path, notice: "Status updated successfully."
+    else
+      redirect_to dashboard_path, alert: "Invalid status."
+    end
+  end
+
   private
 
   def instrument_params

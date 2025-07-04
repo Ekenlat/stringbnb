@@ -4,4 +4,9 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def dashboard
+    # bookings que l'user a reservé
+    @bookings = current_user.bookings.includes(:instrument)
+  end
 end

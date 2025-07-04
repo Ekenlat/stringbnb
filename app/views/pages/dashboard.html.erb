@@ -1,0 +1,37 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center text-primary fw-bold">My Bookings</h2>
+  <div class="text-end mb-4">
+    <%= link_to "← Back to instrument dashboard", dashboard_path, class: "btn btn-outline-secondary btn-sm" %>
+  </div>
+  <% if @bookings.any? %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% @bookings.each do |booking| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm border-0">
+            <% if booking.instrument.photos.attached? %>
+              <%= cl_image_tag booking.instrument.photos.first.key, class: "card-img-top img-top-fixed", alt: booking.instrument.name %>
+            <% else %>
+              <%= image_tag "placeholder.jpeg", class: "card-img-top", alt: "No image available" %>
+            <% end %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-primary"><%= booking.instrument.name %></h5>
+              <% if booking.instrument.status == "unavailable" %>
+                <span class="badge bg-secondary mb-2">No longer available</span>
+              <% end %>
+              <p class="card-text text-muted mb-2">
+                From <%= booking.starting_date.strftime("%d %b %Y") %> to <%= booking.ending_date.strftime("%d %b %Y") %>
+              </p>
+              <p class="card-text"><%= truncate(booking.instrument.description, length: 100) %></p>
+              <%= link_to "View", instrument_path(booking.instrument), class: "btn btn-outline-primary mt-auto" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">You have no bookings yet.</p>
+    <div class="text-center mt-4">
+      <%= link_to "Browse Instruments", instruments_path, class: "btn btn-outline-primary px-4" %>
+    </div>
+  <% end %>
+</div>

@@ -11,9 +11,9 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.instrument = @instrument
     @booking.total_price = (@booking.ending_date - @booking.starting_date).to_i * @instrument.price_per_day
-
+    @booking.status = :pending
     if @booking.save
-      redirect_to dashboard_path, notice: "Booking created successfully !"
+      redirect_to user_bookings_path, notice: "Booking created successfully !"
     else
       flash.now[:alert] = "The booking could not be created. Please check the fields below."
       render :new, status: :unprocessable_entity

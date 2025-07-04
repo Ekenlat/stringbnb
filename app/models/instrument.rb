@@ -10,6 +10,10 @@ class Instrument < ApplicationRecord
   # This is useful for keeping track of past bookings even if the instrument is deleted.
   has_many :bookings, dependent: :destroy
 
+  # Status utilisé pour contrôler si un instrument apparaît ou non dans les listings
+  # Le propriétaire pourra changer ce statut depuis son dashboard (ex : mettre "unavailable" pour le retirer temporairement).
+  enum status: { available: "available", booked: "booked", unavailable: "unavailable" }
+
   # convertis l'adresse de l'instrumenten lat/lon automatiquement
   # a chaque fois que l'adresse change ou qu'on créé un instrument, on recupere les coords gps
   # pour pouvoir afficher l'instrument avec mapbox

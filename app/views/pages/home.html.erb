@@ -3,18 +3,25 @@
     <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
       <h1 class="display-3 fw-bold text-primary mb-3">Stringbnb</h1>
       <p class="lead text-muted mb-3">Rent instruments nearby!</p>
-      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-lg-start">
+
+      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-lg-start flex-wrap">
         <%= link_to "See all instruments", instruments_path, class: "btn btn-primary btn-lg px-4 me-sm-3" %>
         <%= link_to "Rent your instrument", new_instrument_path, class: "btn btn-warning btn-lg px-4 text-dark" %>
+
+        <% if user_signed_in? %>
+          <%= link_to dashboard_path, class: "btn btn-outline-dark btn-lg px-4 d-flex align-items-center gap-2" do %>
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>My Dashboard</span>
+          <% end %>
+        <% end %>
       </div>
     </div>
 
-     <div class="col-lg-6 d-flex justify-content-center">
+    <div class="col-lg-6 d-flex justify-content-center">
       <%= image_tag("landing_illustration.png", alt: "Stringbnb Hero", class: "homepage-hero-image") %>
     </div>
   </div>
 </div>
-
 
 <div class="homepage-steps container pb-4">
   <div class="row text-center">

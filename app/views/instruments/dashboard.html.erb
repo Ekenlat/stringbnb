@@ -1,6 +1,60 @@
-<h1>Dashboard</h1>
-<ul>
-  <% @instruments.each do |instrument| %>
-    <li><%= instrument.title %> - <%= instrument.description %></li>
+<!-- Owner Dashboard Section -->
+<div class="container py-5">
+  <h1 class="mb-5 text-center text-primary fw-bold">My Instruments Dashboard</h1>
+
+   <div class="text-end mb-4">
+    <%= link_to "→ See my bookings", user_bookings_path, class: "btn btn-outline-primary btn-sm" %>
+  </div>
+
+  <% if @instruments.any? %>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% @instruments.each do |instrument| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm border-0 instrument-card hover-shadow transition">
+            <% if instrument.photos.attached? %>
+              <%= cl_image_tag instrument.photos.first.key, class: "card-img-top img-top-fixed", alt: instrument.name %>
+            <% else %>
+              <%= image_tag "placeholder.jpeg", class: "card-img-top", alt: "No image available" %>
+            <% end %>
+
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title text-primary fw-semibold mb-0"><%= instrument.name %></h5>
+
+                <% status = instrument.status %>
+                <% status_class =
+                  case status
+                  when "available" then "bg-success"
+                  when "booked" then "bg-warning text-dark"
+                  when "unavailable" then "bg-secondary"
+                  else "bg-light text-dark"
+                  end %>
+
+                <span class="badge <%= status_class %>">
+                  <%= status.present? ? status.capitalize : "Not set" %>
+                </span>
+              </div>
+
+              <p class="card-text text-muted mb-2"><%= truncate(instrument.description, length: 90) %></p>
+
+              <%= link_to "View Instrument", instrument_path(instrument), class: "btn btn-outline-primary btn-sm w-100 mb-3" %>
+
+              <!-- changer le statut -->
+              <%= form_with url: update_status_instrument_path(instrument), method: :patch, local: true do %>
+                <div class="input-group">
+                  <%= select_tag :status, options_for_select(Instrument.statuses.keys.map { |s| [s.capitalize, s] }, instrument.status), class: "form-select" %>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">You don't have any instruments listed yet.</p>
+    <div class="text-center mt-4">
+      <%= link_to "Add an Instrument", new_instrument_path, class: "btn btn-success px-4" %>
+    </div>
   <% end %>
-</ul>
+</div>

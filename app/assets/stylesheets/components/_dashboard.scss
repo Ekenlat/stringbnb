@@ -1,0 +1,11 @@
+.dashboard-btn {
+  i {
+    color: #6c63ff; // Violet foncé
+  }
+
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #6c63ff;
+    color: #6c63ff;
+  }
+}

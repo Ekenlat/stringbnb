@@ -9,13 +9,18 @@ Rails.application.routes.draw do
 
   resources :instruments do
     resources :bookings, only: %i[new create]
+
+    # permet à un user de changer le statut de son instrument (dispo / pas dispo)
+    # via son dashboard
+    patch :update_status, on: :member
   end
+
   resources :bookings, only: [:destroy]
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   get 'dashboard', to: 'instruments#dashboard', as: :dashboard
-  get 'my_bookings', to: 'bookings#my_bookings', as: :my_bookings
+  get '/bookings', to: 'pages#dashboard', as: :user_bookings
   # Defines the root path route ("/")
   # root "posts#index"
 end
