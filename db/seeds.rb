@@ -43,7 +43,6 @@ INSTRUMENTS = {
   "Flûte traversière" => "Flûte traversière argentée, parfaite pour les solos classiques et les ensembles à vent."
 }
 
-
 valid_addresses = [
   "16 Villa Gaudelet, Paris",
   "18 Rue Sainte-Catherine, Bordeaux",
@@ -58,7 +57,7 @@ valid_addresses = [
 ]
 
 INSTRUMENT_PHOTOS = {
-  "Guitare" => "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?q=80&w=1200&auto=format&fit=crop",
+  "Guitare" => "",
   "Violon" => "https://images.unsplash.com/photo-1612225330812-01a9c6b355ec?q=80&w=1200&auto=format&fit=crop",
   "Piano" => "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=1200&auto=format&fit=crop",
   "Clarinette" => "https://images.unsplash.com/photo-1651232529331-758604de9a6a?q=80&w=1200&auto=format&fit=crop",
