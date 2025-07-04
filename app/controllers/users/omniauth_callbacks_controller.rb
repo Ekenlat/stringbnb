@@ -36,12 +36,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     handle_auth "Google"
   end
 
-  def failure
-    redirect_to root_path, alert: "Authentication failed, please try again."
-  end
-
-  private
-
   def handle_auth(kind)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -50,7 +44,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: kind) if is_navigational_format?
     else
       session["devise.#{kind.downcase}_data"] = request.env["omniauth.auth"].except(:extra)
-      redirect_to new_user_registration_url, alert: "There was a problem signing you in through #{kind}. Please register or try signing in later."
+      redirect_to new_user_registration_url, alert: "There was a problem signing you in through #{kind}."
     end
+  end
+
+  def failure
+    redirect_to root_path
   end
 end
