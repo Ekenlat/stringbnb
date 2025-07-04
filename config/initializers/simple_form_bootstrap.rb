@@ -369,4 +369,4 @@ SimpleForm.setup do |config|
     time:          :vertical_multi_select,
     select:        :vertical_select
   }
-end
+endrailrai

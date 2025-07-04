@@ -16,6 +16,20 @@
   </div>
 
   <div class="mb-3">
+  <%= f.label :address %>
+  <div data-controller="address-autocomplete"
+       data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    <%= f.text_field :address,
+          class: "form-control",
+          autocomplete: "off",
+          placeholder: "Entrez une adresse",
+          data: {
+            address_autocomplete_target: "address"
+          } %>
+  </div>
+</div>
+
+  <div class="mb-3">
     <%= f.label :description %>
     <%= f.text_area :description, class: "form-control" %>
   </div>
@@ -38,13 +52,6 @@
   <div class="mb-3">
     <%= f.label :status %>
     <%= f.select :status, %w[Available Booked Maintenance], {}, class: "form-control" %>
-  </div>
-
-  <div class="mb-3"
-     data-controller="address-autocomplete"
-     data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    <%= f.label :address %>
-    <%= f.text_field :address, class: "form-control", id: "instrument_address", autocomplete: "off" %>
   </div>
 
   <div class="mb-3">

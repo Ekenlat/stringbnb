@@ -1,12 +1,37 @@
-<div class="container py-5">
-  <div class="row align-items-center min-vh-100">
-    <div class="col-lg-7 text-center text-lg-start">
+<div class="homepage-hero container py-5">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
       <h1 class="display-3 fw-bold text-primary mb-3">Stringbnb</h1>
-      <p class="lead text-muted mb-4">Rent instruments nearby!</p>
+      <p class="lead text-muted mb-3">Rent instruments nearby!</p>
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-lg-start">
         <%= link_to "See all instruments", instruments_path, class: "btn btn-primary btn-lg px-4 me-sm-3" %>
         <%= link_to "Rent your instrument", new_instrument_path, class: "btn btn-warning btn-lg px-4 text-dark" %>
       </div>
+    </div>
+
+     <div class="col-lg-6 d-flex justify-content-center">
+      <%= image_tag("landing_illustration.png", alt: "Stringbnb Hero", class: "homepage-hero-image") %>
+    </div>
+  </div>
+</div>
+
+
+<div class="homepage-steps container pb-4">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <i class="fa-solid fa-magnifying-glass fa-2x text-primary mb-2"></i>
+      <h5 class="fw-bold">Explore</h5>
+      <p class="text-muted small">Find the perfect instrument nearby</p>
+    </div>
+    <div class="col-md-4">
+      <i class="fa-solid fa-calendar-check fa-2x text-primary mb-2"></i>
+      <h5 class="fw-bold">Book</h5>
+      <p class="text-muted small">Instant booking and secure payment</p>
+    </div>
+    <div class="col-md-4">
+      <i class="fa-solid fa-music fa-2x text-primary mb-2"></i>
+      <h5 class="fw-bold">Play</h5>
+      <p class="text-muted small">Make music, connect and enjoy</p>
     </div>
   </div>
 </div>

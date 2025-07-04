@@ -10,11 +10,20 @@
               <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Name, type, address…" %>
             </div>
             <!-- ville -->
-            <div class="col-md-2"
-                data-controller="address-autocomplete"
-                data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            <!-- Ville - Structure corrigée -->
+            <div class="col-md-2">
               <%= label_tag :city, "City", class: "form-label" %>
-              <%= text_field_tag :city, params[:city], class: "form-control", placeholder: "Paris, Lyon…", id: "search_city", autocomplete: "off" %>
+              <div data-controller="address-autocomplete"
+                  data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+                     <%= text_field_tag :city,
+                      params[:city],
+                      class: "form-control",
+                      placeholder: "Paris, Lyon…",
+                      autocomplete: "off",
+                      data: {
+                        address_autocomplete_target: "address"
+                      } %>
+              </div>
             </div>
             <!-- catégorie -->
             <div class="col-md-2">

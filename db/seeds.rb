@@ -81,6 +81,7 @@ INSTRUMENTS.each do |type, description|
   )
   instrument.geocode
   instrument.save!
+  
   puts "Instrument #{instrument.name}: #{instrument.latitude}, #{instrument.longitude}"
 
   # ajoute la photo principale via open-uri
