@@ -38,6 +38,29 @@
             <p class="card-text text-muted"><%= truncate(instrument.description, length: 90) %></p>
             <p class="text-dark fw-bold mb-1"><%= number_to_currency(instrument.price_per_day, unit: "€") %> / jour</p>
             <p class="text-muted small mt-auto mb-2">Propriétaire : <%= instrument.user.first_name %></p>
+            <!-- address -->
+            <p class="text-secondary mb-1">
+              <i class="fa-solid fa-location-dot me-1"></i>
+              <%= instrument.address %>
+            </p>
+
+            <!-- rating average and reviews -->
+            <% if instrument.reviews_count > 0 %>
+              <p class="mb-1">
+                <i class="fa-solid fa-star text-warning"></i>
+                <%= instrument.average_rating %>/5
+                (<%= pluralize(instrument.reviews_count, "review") %>)
+              </p>
+              <% instrument.latest_reviews(1).each do |review| %>
+                <div class="border-start ps-2 mb-1">
+                  <span class="fw-semibold"><%= review.user.first_name %></span>
+                  <span class="text-warning"><%= review.rating %>/5</span>
+                  <small class="text-muted">: <%= truncate(review.comment, length: 35) %></small>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-muted mb-1">No reviews yet</p>
+            <% end %>
             <%= link_to "See the instrument", instrument_path(instrument), class: "btn btn-primary w-100" %>
           </div>
         </div>

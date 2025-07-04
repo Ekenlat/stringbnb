@@ -36,4 +36,18 @@ class Instrument < ApplicationRecord
   validates :description, presence: true, length: { minimum: 10, maximum: 400 }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :address, presence: true, length: { minimum: 10, maximum: 120 }
+
+  def average_rating
+    return nil if reviews.empty?
+
+    reviews.average(:rating).round(1)
+  end
+
+  def reviews_count
+    reviews.count
+  end
+
+  def latest_reviews(n = 2)
+    reviews.order(created_at: :desc).limit(n)
+  end
 end
