@@ -1,0 +1,25 @@
+<div class="instrument-info-window p-2">
+  <div class="d-flex align-items-center gap-3 mb-2">
+    <% if instrument.photos.attached? %>
+      <%= image_tag instrument.photos.first.variant(resize_to_fill: [60, 60]), class: "rounded-circle shadow-sm border instrument-info-photo" %>
+    <% else %>
+      <i class="fa-solid fa-guitar fa-2x text-secondary"></i>
+    <% end %>
+    <div>
+      <h5 class="mb-1 fw-bold text-primary"><%= instrument.name %></h5>
+      <span class="badge bg-info text-dark"><%= instrument.instrument_type %></span>
+    </div>
+  </div>
+  <div class="mb-1">
+    <span class="location-chip">
+      <i class="fa-solid fa-location-dot"></i>
+      <span class="small text-muted"><%= truncate(instrument.address, length: 38) %></span>
+    </span>
+  </div>
+  <div class="fw-semibold mb-2">
+    <span class="text-success"><%= number_to_currency(instrument.price_per_day, unit: "€") %></span>
+    <span class="small text-muted">/ jour</span>
+  </div>
+  <p class="mb-2 text-truncate instrument-description"><%= instrument.description %></p>
+  <%= link_to "Voir la fiche", instrument_path(instrument), class: "btn btn-outline-primary btn-sm w-100 fw-bold" %>
+</div>

@@ -10,7 +10,7 @@
     <li class="list-group-item"><strong>Type:</strong> <%= @instrument.instrument_type %></li>
     <li class="list-group-item"><strong>Price:</strong> $<%= @instrument.price_per_day %>€ per day</li>
     <li class="list-group-item"><strong>Owner:</strong> <%= @instrument.user.first_name %> <%= @instrument.user.last_name %></li>
-    <li class="list-group-item"><strong>Location:</strong> <%= @instrument.user.address %></li>
+    <li class="list-group-item"><strong>Location:</strong> <%= instrument.address %></li>
     <li class="list-group-item"><strong>Size:</strong> <%= @instrument.size %></li>
     </ul>
     <% if user_signed_in? && current_user == @instrument.user %>

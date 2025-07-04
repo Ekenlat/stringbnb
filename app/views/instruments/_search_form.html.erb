@@ -1,0 +1,42 @@
+<div class="row justify-content-center mb-4">
+  <div class="col-12 col-md-10 col-lg-8">
+    <div class="card shadow-sm search-card mb-3">
+      <div class="card-body">
+        <%= form_with url: instruments_path, method: :get, local: true, class: "mb-0" do %>
+          <div class="row g-2 align-items-end">
+            <!-- search globale -->
+            <div class="col-md-4">
+              <%= label_tag :search, "Search", class: "form-label" %>
+              <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Name, type, address…" %>
+            </div>
+            <!-- ville -->
+            <div class="col-md-2"
+                data-controller="address-autocomplete"
+                data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+              <%= label_tag :city, "City", class: "form-label" %>
+              <%= text_field_tag :city, params[:city], class: "form-control", placeholder: "Paris, Lyon…", id: "search_city", autocomplete: "off" %>
+            </div>
+            <!-- catégorie -->
+            <div class="col-md-2">
+              <%= label_tag :category, "Category", class: "form-label" %>
+              <%= select_tag :category, options_for_select(Instrument::INSTRUMENT_TYPES, params[:category]), include_blank: "All", class: "form-select" %>
+            </div>
+            <!-- Prix min -->
+            <div class="col-md-1">
+              <%= label_tag :price_min, "Min €/day", class: "form-label" %>
+              <%= number_field_tag :price_min, params[:price_min], class: "form-control", min: 0 %>
+            </div>
+            <!-- Prix max -->
+            <div class="col-md-1">
+              <%= label_tag :price_max, "Max €/day", class: "form-label" %>
+              <%= number_field_tag :price_max, params[:price_max], class: "form-control", min: 0 %>
+            </div>
+            <div class="col-md-2 d-grid">
+              <%= submit_tag "Search", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

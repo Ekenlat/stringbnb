@@ -4,7 +4,45 @@ class InstrumentsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
 
   def index
-    @instruments = Instrument.all
+    # affiche uniquement les instruments avec une adresse géocodée
+    @instruments = Instrument.geocoded
+    # Recherche globale sur nom, type, adresse
+    if params[:search].present?
+      @instruments = @instruments.where(
+        "name ILIKE :query OR instrument_type ILIKE :query OR address ILIKE :query",
+        query: "%#{params[:search]}%"
+      )
+    end
+
+    # filtre par ville (city)
+    if params[:city].present?
+      @instruments = @instruments.where("address ILIKE ?", "%#{params[:city]}%")
+    end
+
+    #filtre prix min
+    if params[:price_min].present?
+      @instruments = @instruments.where("price_per_day >= ?", params[:price_min])
+    end
+
+    # filtre prix max
+    if params[:price_max].present?
+      @instruments = @instruments.where("price_per_day <= ?", params[:price_max])
+    end
+
+    # fFiltre catégorie/type
+    if params[:category].present?
+      @instruments = @instruments.where(instrument_type: params[:category])
+    end
+
+    #on prépare un tableau des marqueurs avec latitude/longitude pour mapbox
+    @markers = @instruments.select { |i| i.latitude.present? && i.longitude.present? }.map do |instrument|
+      {
+        lat: instrument.latitude,
+        lng: instrument.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: { instrument: instrument }),
+        marker_html: render_to_string(partial: "marker", locals: { instrument: instrument })
+      }
+    end
   end
 
   def show
@@ -51,6 +89,7 @@ class InstrumentsController < ApplicationController
   private
 
   def instrument_params
-    params.require(:instrument).permit(:name, :description, :size, :instrument_type, :price_per_day, photos: [])
+    params.require(:instrument).permit(
+    :name, :address, :description, :size, :instrument_type, :price_per_day, :status, photos: [])
   end
 end

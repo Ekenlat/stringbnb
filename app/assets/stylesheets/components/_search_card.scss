@@ -1,0 +1,12 @@
+.search-card {
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 0 1px 8px rgba(30, 35, 90, 0.07);
+  .form-label {
+    font-weight: 500;
+    color: #7e5dfa;
+  }
+  .form-control, .form-select {
+    border-radius: 0.5rem;
+  }
+}

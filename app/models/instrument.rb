@@ -10,6 +10,12 @@ class Instrument < ApplicationRecord
   # This is useful for keeping track of past bookings even if the instrument is deleted.
   has_many :bookings, dependent: :destroy
 
+  # convertis l'adresse de l'instrumenten lat/lon automatiquement
+  # a chaque fois que l'adresse change ou qu'on créé un instrument, on recupere les coords gps
+  # pour pouvoir afficher l'instrument avec mapbox
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
   # Each instrument can have multiple photos attached via Active Storage
   # Used for instrument listings so owners can upload several images per instrument
   has_many_attached :photos
