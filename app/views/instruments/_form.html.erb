@@ -40,6 +40,13 @@
     <%= f.select :status, %w[Available Booked Maintenance], {}, class: "form-control" %>
   </div>
 
+  <div class="mb-3"
+     data-controller="address-autocomplete"
+     data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: "form-control", id: "instrument_address", autocomplete: "off" %>
+  </div>
+
   <div class="mb-3">
     <%= f.label :photos %>
     <%= f.file_field :photos, multiple: true, class: "form-control" %>

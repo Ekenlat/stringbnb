@@ -9,13 +9,13 @@
 #   end
 
 require 'faker'
+require "open-uri"
 
 puts "Resetting DB..."
 Booking.destroy_all
 Review.destroy_all
 Instrument.destroy_all
 User.destroy_all
-
 
 prenoms = %w[Audric Barthelemy Nour Baptiste Jonathan]
 noms = %w[Nomentsoa Terrier Cucculelli Harrag Masson]
@@ -40,16 +40,30 @@ INSTRUMENTS = {
   "Piano" => "Piano droit élégant, idéal pour les amateurs et les pianistes confirmés.",
   "Clarinette" => "Clarinette en résine, légère et parfaite pour les débutants ou les musiciens nomades.",
   "Batterie" => "Kit de batterie complet avec cymbales et toms, excellent pour les styles rock et jazz.",
-  "Flûte traversière" => "Flûte traversière argentée, parfaite pour les solos classiques et les ensembles à vent.",
-  "Saxophone" => "Saxophone alto brillant, sonorité chaude adaptée au jazz et à la musique moderne.",
-  "Contrebasse" => "Contrebasse massive, parfaite pour les orchestres symphoniques et les sessions jazz acoustiques.",
-  "Trompette" => "Trompette en laiton avec pistons souples, très expressive pour les solos éclatants.",
-  "Harp" => "Harpe celtique au bois noble, idéale pour les musiques traditionnelles ou les compositions oniriques.",
-  "Guitare électrique" => "Guitare électrique de style vintage avec micros double bobinage. Parfaite pour le rock énergique.",
-  "Accordéon" => "Accordéon chromatique français, idéal pour la musette, le jazz manouche ou la musique traditionnelle.",
-  "Ukulélé" => "Petit ukulélé hawaïen, léger et facile à prendre en main, parfait pour les débutants.",
-  "Xylophone" => "Xylophone en bois massif avec baguettes douces, idéal pour l'éveil musical.",
-  "Harmonica" => "Harmonica en do majeur, parfait pour les improvisations blues ou les balades folk."
+  "Flûte traversière" => "Flûte traversière argentée, parfaite pour les solos classiques et les ensembles à vent."
+}
+
+
+valid_addresses = [
+  "16 Villa Gaudelet, Paris",
+  "18 Rue Sainte-Catherine, Bordeaux",
+  "8 Place Bellecour, Lyon",
+  "2 Rue de la République, Marseille",
+  "10 Rue Nationale, Lille",
+  "15 Avenue Jean Jaurès, Toulouse",
+  "12 Place Masséna, Nice",
+  "20 Avenue Victor Hugo, Montpellier",
+  "21 Rue du Faubourg Saint-Antoine, Paris",
+  "50 Quai Charles de Gaulle, Lyon"
+]
+
+INSTRUMENT_PHOTOS = {
+  "Guitare" => "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?q=80&w=1200&auto=format&fit=crop",
+  "Violon" => "https://images.unsplash.com/photo-1612225330812-01a9c6b355ec?q=80&w=1200&auto=format&fit=crop",
+  "Piano" => "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=1200&auto=format&fit=crop",
+  "Clarinette" => "https://images.unsplash.com/photo-1651232529331-758604de9a6a?q=80&w=1200&auto=format&fit=crop",
+  "Batterie" => "https://images.unsplash.com/photo-1694677476149-d0c5f5b553e0?q=80&w=1200&auto=format&fit=crop",
+  "Flûte traversière" => "https://plus.unsplash.com/premium_photo-1664303083732-32e079d36221?q=80&w=1200&auto=format&fit=crop"
 }
 
 sizes = %w[Standard Large Compact Mini XL]
@@ -62,13 +76,27 @@ INSTRUMENTS.each do |type, description|
     size: sizes.sample,
     user: users.sample,
     name: "#{Faker::Music.band} #{type.downcase}",
-    description: description
+    description: description,
+    address: valid_addresses.sample
   )
+  instrument.geocode
+  instrument.save!
+  puts "Instrument #{instrument.name}: #{instrument.latitude}, #{instrument.longitude}"
+
+  # ajoute la photo principale via open-uri
+  photo_url = INSTRUMENT_PHOTOS[type]
+  if photo_url.present?
+    file = URI.open(photo_url)
+    instrument.photos.attach(io: file, filename: "#{type.downcase}.jpg", content_type: "image/jpeg")
+  end
 
   image_folder = Rails.root.join("db/seeds/images/#{type.downcase}")
-  Dir[image_folder.join("*.jpg")].sample(rand(2..3)).each do |path|
-    instrument.photos.attach(io: File.open(path), filename: File.basename(path))
+  if Dir.exist?(image_folder)
+    Dir[image_folder.join("*.jpg")].sample(rand(2..3)).each do |path|
+      instrument.photos.attach(io: File.open(path), filename: File.basename(path))
+    end
   end
+
   instruments << instrument
   puts "Created instrument: #{instrument.name} (#{instrument.instrument_type})"
 end
@@ -88,15 +116,16 @@ end
 
 # Chaque user restant booke un instrument différent
 users.each_with_index do |user, i|
+  instrument = instruments[i % instruments.length]
   Booking.create!(
     starting_date: Date.today + i,
     ending_date: Date.today + i + rand(1..5),
     user: user,
-    instrument: instruments[i],
-    total_price: instruments[i].price_per_day * rand(1..5),
+    instrument: instrument,
+    total_price: instrument.price_per_day * rand(1..5),
     status: %w[pending confirmed cancelled].sample
   )
-  puts "#{user.first_name} booked #{instruments[i].name}"
+  puts "#{user.first_name} booked #{instrument.name}"
 end
 
 # Chaque booking reçoit un review random
