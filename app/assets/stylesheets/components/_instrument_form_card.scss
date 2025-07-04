@@ -1,0 +1,22 @@
+.instrument-form-card {
+  background: #fff;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  input[type="file"] {
+    padding: 0.4rem;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .btn {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

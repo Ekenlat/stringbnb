@@ -1,63 +1,61 @@
-<%= form_with(model: instrument, local: true) do |f| %>
-  <% if instrument.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(instrument.errors.count, "error") %> prohibited this instrument from being saved:</h4>
-      <ul>
-        <% instrument.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg p-5 instrument-form-card">
+        <div class="text-center mb-4">
+          <i class="fa-solid fa-plus fa-3x text-primary mb-2"></i>
+          <h2 class="fw-bold mb-2">Add a New Instrument</h2>
+          <p class="text-muted mb-4">Fill in the details below to add your gear to your collection.</p>
+        </div>
+
+        <% if @instrument.errors.any? %>
+          <div class="alert alert-danger">
+            <h4 class="mb-2"><%= pluralize(@instrument.errors.count, "error") %> prevented the instrument from being saved:</h4>
+            <ul class="mb-0">
+              <% @instrument.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <%= form_with(model: instrument, local: true) do |f| %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.label :name, class: "form-label fw-bold" %>
+              <%= f.text_field :name, class: "form-control mb-3" %>
+              <%= f.label :instrument_type, class: "form-label fw-bold" %>
+              <%= f.select :instrument_type, Instrument::INSTRUMENT_TYPES, {}, class: "form-control mb-3" %>
+              <%= f.label :price_per_day, "Price per Day (€)", class: "form-label fw-bold" %>
+              <%= f.number_field :price_per_day, class: "form-control mb-3" %>
+              <%= f.label :photos, "Upload Photos", class: "form-label fw-bold" %>
+              <%= f.file_field :photos, multiple: true, class: "form-control mb-3" %>
+            </div>
+
+
+            <div class="col-md-6">
+            <%= f.label :address %>
+            <div data-controller="address-autocomplete"
+                data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            <%= f.text_field :address,
+                    class: "form-control mb-3",
+                    autocomplete: "off",
+                    placeholder: "Enter an address",
+                    data: {
+                      address_autocomplete_target: "address"
+                    } %>
+            </div>
+            <%= f.label :size, class: "form-label fw-bold" %>
+            <%= f.select :size, Instrument::INSTRUMENT_SIZES, {}, class: "form-control mb-3" %>
+            <%= f.label :description, class: "form-label fw-bold" %>
+            <%= f.text_area :description, rows: 5, class: "form-control mb-3" %>
+            </div>
+          </div>
+          <div class="text-end mt-4">
+            <%= f.submit "Create Instrument", class: "btn btn-primary px-4 py-2 shadow-sm" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-  <%= f.label :address %>
-  <div data-controller="address-autocomplete"
-       data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    <%= f.text_field :address,
-          class: "form-control",
-          autocomplete: "off",
-          placeholder: "Entrez une adresse",
-          data: {
-            address_autocomplete_target: "address"
-          } %>
   </div>
 </div>
-
-  <div class="mb-3">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :instrument_type %>
-    <%= f.select :instrument_type, Instrument::INSTRUMENT_TYPES, {}, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :size %>
-    <%= f.select :size, Instrument::INSTRUMENT_SIZES, {}, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :price_per_day %>
-    <%= f.number_field :price_per_day, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :status %>
-    <%= f.select :status, %w[Available Booked Maintenance], {}, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :photos %>
-    <%= f.file_field :photos, multiple: true, class: "form-control" %>
-  </div>
-
-  <%= f.submit class: "btn btn-primary" %>
-<% end %>

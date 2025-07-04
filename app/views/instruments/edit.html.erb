@@ -1,3 +1,33 @@
-<h2>Edit Instrument</h2>
-<%= render 'form', instrument: @instrument %>
-<%= link_to "Back", @instrument %>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="form-card card shadow-lg p-5">
+        <div class="text-center mb-4">
+          <i class="fa-solid fa-pen-to-square fa-2x text-primary mb-2"></i>
+          <h2 class="form-title fw-bold mb-1">Edit Your Instrument</h2>
+          <p class="text-muted">Update your listing's details below.</p>
+        </div>
+
+        <%= simple_form_for(@instrument, html: { class: "edit-instrument-form" }) do |f| %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.input :name, label: "Name", input_html: { class: "form-control" } %>
+              <%= f.input :instrument_type, label: "Type", input_html: { class: "form-control" } %>
+              <%= f.input :description, as: :text, label: "Description", input_html: { class: "form-control", rows: 4 } %>
+              <%= f.input :price_per_day, label: "Price per Day (€)", input_html: { class: "form-control" } %>
+            </div>
+            <div class="col-md-6">
+              <%= f.input :address, label: "Location", input_html: { class: "form-control" } %>
+              <%= f.input :size, label: "Size", input_html: { class: "form-control" } %>
+              <%= f.input :photos, as: :file, label: "Upload Photo", input_html: { multiple: true, class: "form-control" } %>
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <%= f.button :submit, "Update Instrument", class: "btn btn-primary px-4 form-submit-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,8 @@ class InstrumentsController < ApplicationController
   def index
     # affiche uniquement les instruments avec une adresse géocodée
     @instruments = Instrument.geocoded
+    # exclue les instruments de l'utilisateur quand il n'est pas connecté
+    @instruments = @instruments.where.not(user: current_user) if user_signed_in?
     # Recherche globale sur nom, type, adresse
     if params[:search].present?
       @instruments = @instruments.where(
@@ -47,9 +49,11 @@ class InstrumentsController < ApplicationController
 
   def show
     @instrument = Instrument.find(params[:id])
-    if user_signed_in?
+    return unless user_signed_in?
+
     @booking = Booking.find_by(user: current_user, instrument: @instrument)
-    end
+    @review = Review.new
+    @reviews = @instrument.reviews.includes(:user).order(created_at: :desc)
   end
 
   def new
@@ -57,12 +61,16 @@ class InstrumentsController < ApplicationController
   end
 
   def dashboard
-    @instruments = current_user.instruments
+    @instruments = current_user.instruments.includes(:bookings)
+    # ajout des réservations reçues sur ses instruments
+    @received_bookings = Booking.joins(:instrument).where(instruments: { user_id: current_user.id }).includes(:user).order(starting_date: :asc)
   end
 
   def create
     @instrument = Instrument.new(instrument_params)
     @instrument.user = current_user
+    @instrument.status = :unavailable # unavailable par défault, se met automatiquement sur son dashboard avant
+    # qu'il ne décise de le lister
 
     if @instrument.save
       redirect_to @instrument, notice: 'Instrument was successfully created.'
@@ -95,6 +103,12 @@ class InstrumentsController < ApplicationController
     else
       redirect_to dashboard_path, alert: "Invalid status."
     end
+  end
+
+  def destroy
+    @instrument = current_user.instruments.find(params[:id])
+    @instrument.destroy
+    redirect_to dashboard_path, notice: "Instrument successfully deleted."
   end
 
   private

@@ -7,15 +7,15 @@ Rails.application.routes.draw do
   # bloc resources :instruments do ... end gère déjà toutes les routes pour instruments
   # et permet de nester bookings proprement
 
-  resources :instruments do
+  resources :instruments, only: %i[index show new create edit update destroy] do
     resources :bookings, only: %i[new create]
-
+    resources :reviews, only: [:create]
     # permet à un user de changer le statut de son instrument (dispo / pas dispo)
     # via son dashboard
     patch :update_status, on: :member
   end
 
-  resources :bookings, only: [:destroy]
+  resources :bookings, only: %i[update destroy]
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

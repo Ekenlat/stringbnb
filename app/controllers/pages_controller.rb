@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    # bookings que l'user a reservé
-    @bookings = current_user.bookings.includes(:instrument)
+    # bookings que l'user a reservé ( hors cancelled)
+    @bookings = current_user.bookings.where.not(status: "cancelled").includes(:instrument).order(starting_date: :asc)
   end
 end

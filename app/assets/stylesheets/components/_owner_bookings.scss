@@ -1,0 +1,36 @@
+.owner-bookings-section {
+  padding: 4rem 0;
+
+  .section-divider {
+    width: 200px;
+    height: 3px;
+    background-color: #6c63ff;
+    opacity: 0.5;
+    margin: 0 auto 2rem;
+    border: none;
+  }
+
+  .section-title {
+    text-align: center;
+    color: #5610a7;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+      object-fit: cover;
+      height: 200px;
+    }
+
+    .badge {
+      width: fit-content;
+    }
+  }
+}

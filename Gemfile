@@ -56,7 +56,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem 'faker'
 gem "image_processing", "~> 1.2"
-gem "cloudinary"
+gem "cloudinary", "~> 1.24"
 gem "activestorage-cloudinary-service"
 gem 'binding_of_caller', '~> 1.0'
 gem "geocoder"

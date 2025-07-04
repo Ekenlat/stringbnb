@@ -13,6 +13,7 @@ class BookingsController < ApplicationController
     @booking.total_price = (@booking.ending_date - @booking.starting_date).to_i * @instrument.price_per_day
     @booking.status = :pending
     if @booking.save
+      @instrument.update(status: :booked) # l'instrument est automatiquement booké
       redirect_to user_bookings_path, notice: "Booking created successfully !"
     else
       flash.now[:alert] = "The booking could not be created. Please check the fields below."
@@ -21,7 +22,7 @@ class BookingsController < ApplicationController
   end
 
   def my_bookings
-    @bookings = current_user.bookings
+    @bookings = current_user.bookings.where.not(status: "cancelled")
   end
 
   def destroy
@@ -31,6 +32,16 @@ class BookingsController < ApplicationController
       redirect_to dashboard_path, notice: "Booking deleted successfully."
     else
       redirect_to dashboard_path, alert: "Vous ne pouvez que supprimez les reservations qui vous appartienne."
+    end
+  end
+
+  def update
+    @booking = Booking.find(params[:id])
+    if current_user == @booking.user
+      @booking.update(status: "cancelled")
+      redirect_to user_bookings_path, notice: "Booking cancelled successfully."
+    else
+      redirect_to root_path, alert: "You're not authorized to cancel this booking."
     end
   end
 

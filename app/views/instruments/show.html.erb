@@ -4,8 +4,15 @@
     <% @instrument.photos.each do |photo| %>
       <%= cl_image_tag photo.key, class: "img-thumbnail", size: "300x300" %>
     <% end %>
-    <h2 class="card-title"><%= @instrument.name %></h2>
+    <h2 class="card-title d-flex align-items-center gap-2">
+        <%= @instrument.name %>
+        <% if @instrument.bookings.where(status: %w[pending accepted]).any? %>
+          <i class="fa-solid fa-calendar-xmark text-danger" title="Currently booked"></i>
+        <% end %>
+      </h2>
+
     <h5 class="card-subtitle mb-2 text-muted"><%= @instrument.description %></h5>
+
     <ul class="list-group list-group-flush my-3">
     <li class="list-group-item"><strong>Type:</strong> <%= @instrument.instrument_type %></li>
     <li class="list-group-item"><strong>Price:</strong> $<%= @instrument.price_per_day %>€ per day</li>
@@ -13,6 +20,7 @@
     <li class="list-group-item"><strong>Location:</strong> <%= @instrument.address %></li>
     <li class="list-group-item"><strong>Size:</strong> <%= @instrument.size %></li>
     </ul>
+
     <% if user_signed_in? && current_user == @instrument.user %>
         <div class="alert alert-info text-center my-3">This is your instrument.</div>
       <% elsif user_signed_in? %>
@@ -27,6 +35,42 @@
     <% if user_signed_in? && current_user == @instrument.user %>
       <%= link_to "Edit this instrument", edit_instrument_path(@instrument), class: "btn btn-warning" %>
     <% end %>
+    <hr class="my-5 section-divider">
+
+      <h3 class="text-primary fw-bold mb-4">Reviews</h3>
+
+      <% if @reviews.any? %>
+        <div class="mb-4">
+          <% @reviews.each do |review| %>
+            <div class="mb-3 p-3 border rounded shadow-sm bg-light">
+              <p class="mb-1">
+                <strong><%= review.user.first_name %></strong> rated
+                <span class="badge bg-warning text-dark"><%= review.rating %>★</span>
+              </p>
+              <p class="text-muted mb-0"><%= review.comment %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted">No reviews yet. Be the first to leave one!</p>
+      <% end %>
+
+      <% if user_signed_in? && current_user != @instrument.user %>
+        <h4 class="mt-5 mb-3">Leave a Review</h4>
+        <%= form_with(model: [@instrument, @review], local: true) do |f| %>
+          <div class="mb-3">
+            <%= f.label :rating, "Rating (0 to 5)" %>
+            <%= f.number_field :rating, in: 0..5, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :comment, "Comment" %>
+            <%= f.text_area :comment, class: "form-control", rows: 4 %>
+          </div>
+
+          <%= f.submit "Submit Review", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

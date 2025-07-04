@@ -23,6 +23,11 @@
               </p>
               <p class="card-text"><%= truncate(booking.instrument.description, length: 100) %></p>
               <%= link_to "View", instrument_path(booking.instrument), class: "btn btn-outline-primary mt-auto" %>
+              <% if booking.status != "cancelled" %>
+              <%= button_to "Cancel", booking_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm mt-2", data: { turbo_method: :patch, turbo_confirm: "Are you sure you want to cancel this booking?" } %>
+              <% else %>
+              <span class="badge bg-secondary mt-2">Cancelled</span>
+              <% end %>
             </div>
           </div>
         </div>
