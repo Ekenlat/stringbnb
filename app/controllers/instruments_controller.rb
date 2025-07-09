@@ -49,11 +49,12 @@ class InstrumentsController < ApplicationController
 
   def show
     @instrument = Instrument.find(params[:id])
+    @reviews = @instrument.reviews.includes(:user).order(created_at: :desc)
+    @review = Review.new
+
     return unless user_signed_in?
 
-    @booking = Booking.find_by(user: current_user, instrument: @instrument)
-    @review = Review.new
-    @reviews = @instrument.reviews.includes(:user).order(created_at: :desc)
+    @booking = @instrument.bookings.find_by(user: current_user, status: %w[pending accepted])
   end
 
   def new
