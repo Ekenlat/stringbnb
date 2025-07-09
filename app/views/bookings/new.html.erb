@@ -15,14 +15,17 @@
         </div>
       <% end %>
 
-      <div data-controller="flatpickr">
+      <div data-controller="flatpickr" data-flatpickr-price-per-day-value="<%= @instrument.price_per_day %>">
         <%= simple_form_for [@instrument, @booking], html: { class: "needs-validation" } do |f| %>
           <div class="mb-3">
             <%= f.input :starting_date, as: :string, label: "Start date", input_html: { data: { flatpickr_target: "startDate" }, class: "form-control" }, label_html: { class: "form-label" } %>
           </div>
           <div class="mb-3">
             <%= f.input :ending_date, as: :string, label: "End date", input_html: { data: { flatpickr_target: "endDate" }, class: "form-control" }, label_html: { class: "form-label" } %>
-          </div>
+            </div>
+              <div class="mb-3">
+              <div id="total-price" class="alert alert-info d-none text-center fw-bold py-2 px-3 mb-0"></div>
+            </div>
           <%= f.button :submit, "Book this instrument", class: "btn btn-success btn-lg w-100" %>
         <% end %>
 

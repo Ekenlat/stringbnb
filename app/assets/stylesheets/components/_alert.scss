@@ -4,3 +4,12 @@
   right: 16px;
   z-index: 1000;
 }
+
+#total-price {
+  font-size: 1.2rem;
+  color: #4e148c; // violet Airbnb
+  background: linear-gradient(90deg, #f9fafb 60%, #f7e5ff 100%);
+  border: 1px solid #c2a7e4;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(130,80,250,0.07);
+}

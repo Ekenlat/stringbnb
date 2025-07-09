@@ -1,6 +1,7 @@
 <div class="container d-flex justify-content-center my-5">
   <div class="card shadow p-4">
-    <div class="card-body">
+   <div class="card-body">
+    <% if @instrument.photos.attached? && @instrument.photos.count > 1 %>
       <div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <% @instrument.photos.each_with_index do |photo, index| %>
@@ -16,7 +17,7 @@
         <div class="carousel-inner rounded" style="max-width: 750px; overflow: hidden; margin: auto;">
           <% @instrument.photos.each_with_index do |photo, index| %>
             <div class="carousel-item <%= 'active' if index == 0 %>">
-              <%= cl_image_tag photo.key, class: "d-block", height: 400, width: 750 %>
+              <%= cl_image_tag photo.key, class: "d-block w-100", height: 400, width: 750 %>
             </div>
           <% end %>
         </div>
@@ -29,7 +30,11 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-    <!-- Custom JavaScript -->
+    <% elsif @instrument.photos.attached? %>
+      <!-- Affiche juste la photo si une seule -->
+      <%= cl_image_tag @instrument.photos.first.key, class: "img-thumbnail", height: 400, width: 750 %>
+    <% end %>
+
     <h2 class="card-title d-flex align-items-center gap-2">
         <%= @instrument.name %>
         <% if @instrument.bookings.where(status: %w[pending accepted]).any? %>
@@ -52,6 +57,7 @@
       <% elsif user_signed_in? %>
         <%= link_to "Book this instrument", new_instrument_booking_path(@instrument), class: "btn btn-success btn-lg w-100" %>
       <% end %>
+      <div data-controller="flatpickr" data-flatpickr-price-per-day-value="<%= @instrument.price_per_day %>">
       <div class="text-center mt-3">
         <%= link_to "Back to Instruments", instruments_path %>
     </div>
@@ -59,7 +65,7 @@
       <%= link_to "Cancel booking", booking_path(@booking),
     method: :delete,
     data: { turbo_confirm: "Are you sure?" },
-    class: "btn btn-danger btn-sm" %>
+    class: "btn btn-danger btn-sm" %>²    ok
     <% end %>
     <% if user_signed_in? && current_user == @instrument.user %>
       <%= link_to "Edit this instrument", edit_instrument_path(@instrument), class: "btn btn-warning" %>
