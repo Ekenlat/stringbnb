@@ -10,6 +10,13 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     @booking.instrument = @instrument
+
+    if @booking.starting_date.blank? || @booking.ending_date.blank?
+      flash.now[:alert] = "Both start and end dates are required."
+      render :new, status: :unprocessable_entity
+      return
+    end
+
     @booking.total_price = (@booking.ending_date - @booking.starting_date).to_i * @instrument.price_per_day
     @booking.status = :pending
     if @booking.save

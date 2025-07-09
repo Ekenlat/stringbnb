@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_04_045919) do
     t.float "latitude"
     t.float "longitude"
     t.string "address"
-    t.string "status", default: "available"
+    t.string "status"
     t.index ["user_id"], name: "index_instruments_on_user_id"
   end
 
@@ -94,6 +94,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_04_045919) do
     t.string "last_name"
     t.string "address"
     t.string "phone_number"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
